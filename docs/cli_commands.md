@@ -220,6 +220,7 @@ This document provides an overview of CLI commands that can be sent to MeshCore 
 #### Change the radio parameters for a set duration
 **Usage:** 
 - `tempradio <freq>,<bw>,<sf>,<cr>,<timeout_mins>`
+- `tempradio off <timeout_mins>`
 
 **Parameters:**
 - `freq`: Frequency in MHz (300-2500)
@@ -227,6 +228,8 @@ This document provides an overview of CLI commands that can be sent to MeshCore 
 - `sf`: Spreading factor (5-12)
 - `cr`: Coding rate (5-8)
 - `timeout_mins`: Duration in minutes (must be > 0)
+
+When using `tempradio off`, all radio TX is paused for the provided number of minutes (useful when swapping antennas).
 
 **Note:** This is not saved to preferences and will clear on reboot
 

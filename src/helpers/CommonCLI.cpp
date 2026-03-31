@@ -270,6 +270,16 @@ void CommonCLI::handleCommand(uint32_t sender_timestamp, const char* command, ch
       strcpy(tmp, &command[10]);
       const char *parts[5];
       int num = mesh::Utils::parseTextParts(tmp, parts, 5);
+      if (num >= 2 && memcmp(parts[0], "off", 3) == 0 && parts[0][3] == 0) {
+        int temp_timeout_mins = atoi(parts[1]);
+        if (temp_timeout_mins > 0) {
+          _callbacks->disableTxFor(temp_timeout_mins);
+          sprintf(reply, "OK - TX disabled for %d mins", temp_timeout_mins);
+        } else {
+          strcpy(reply, "Error, invalid params");
+        }
+        return;
+      }
       float freq  = num > 0 ? strtof(parts[0], nullptr) : 0.0f;
       float bw    = num > 1 ? strtof(parts[1], nullptr) : 0.0f;
       uint8_t sf  = num > 2 ? atoi(parts[2]) : 0;

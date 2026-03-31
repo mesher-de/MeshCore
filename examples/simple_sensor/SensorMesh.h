@@ -77,6 +77,7 @@ public:
   void saveIdentity(const mesh::LocalIdentity& new_id) override;
   void clearStats() override { }
   void applyTempRadioParams(float freq, float bw, uint8_t sf, uint8_t cr, int timeout_mins) override;
+  void disableTxFor(int timeout_mins) override;
 
   float getTelemValue(uint8_t channel, uint8_t type);
 

@@ -117,6 +117,7 @@ class Dispatcher {
   Packet* outbound;  // current outbound packet
   unsigned long outbound_expiry, outbound_start, total_air_time, rx_air_time;
   unsigned long next_tx_time;
+  unsigned long tx_blocked_until;
   unsigned long cad_busy_start;
   unsigned long radio_nonrx_start;
   unsigned long next_floor_calib_time, next_agc_reset_time;
@@ -142,6 +143,7 @@ protected:
     outbound = NULL;
     total_air_time = rx_air_time = 0;
     next_tx_time = ms.getMillis();
+    tx_blocked_until = 0;
     cad_busy_start = 0;
     next_floor_calib_time = next_agc_reset_time = 0;
     _err_flags = 0;
@@ -180,6 +182,8 @@ public:
   unsigned long getTotalAirTime() const { return total_air_time; }
   unsigned long getReceiveAirTime() const {return rx_air_time; }
   unsigned long getRemainingTxBudget() const { return tx_budget_ms; }
+  void blockTxFor(unsigned long duration_ms);
+  bool isTxBlocked() const;
   uint32_t getNumSentFlood() const { return n_sent_flood; }
   uint32_t getNumSentDirect() const { return n_sent_direct; }
   uint32_t getNumRecvFlood() const { return n_recv_flood; }

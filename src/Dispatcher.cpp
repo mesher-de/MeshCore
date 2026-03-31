@@ -273,6 +273,7 @@ void Dispatcher::processRecvPacket(Packet* pkt) {
 
 void Dispatcher::checkSend() {
   if (_mgr->getOutboundCount(_ms->getMillis()) == 0) return;
+  if (isTxBlocked()) return;
   
   updateTxBudget();
   
@@ -350,6 +351,17 @@ void Dispatcher::checkSend() {
     #endif
     }
   }
+}
+
+void Dispatcher::blockTxFor(unsigned long duration_ms) {
+  unsigned long until = futureMillis(duration_ms);
+  if (tx_blocked_until == 0 || millisHasNowPassed(tx_blocked_until) || until > tx_blocked_until) {
+    tx_blocked_until = until;
+  }
+}
+
+bool Dispatcher::isTxBlocked() const {
+  return tx_blocked_until != 0 && !millisHasNowPassed(tx_blocked_until);
 }
 
 Packet* Dispatcher::obtainNewPacket() {

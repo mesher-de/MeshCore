@@ -87,6 +87,7 @@ public:
   virtual void saveIdentity(const mesh::LocalIdentity& new_id) = 0;
   virtual void clearStats() = 0;
   virtual void applyTempRadioParams(float freq, float bw, uint8_t sf, uint8_t cr, int timeout_mins) = 0;
+  virtual void disableTxFor(int timeout_mins) = 0;
 
   virtual void setBridgeState(bool enable) {
     // no op by default

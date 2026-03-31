@@ -943,6 +943,10 @@ void MyMesh::applyTempRadioParams(float freq, float bw, uint8_t sf, uint8_t cr, 
   revert_radio_at = futureMillis(2000 + timeout_mins * 60 * 1000); // schedule when to revert radio params
 }
 
+void MyMesh::disableTxFor(int timeout_mins) {
+  blockTxFor((unsigned long)timeout_mins * 60UL * 1000UL);
+}
+
 bool MyMesh::formatFileSystem() {
 #if defined(NRF52_PLATFORM) || defined(STM32_PLATFORM)
   return InternalFS.format();

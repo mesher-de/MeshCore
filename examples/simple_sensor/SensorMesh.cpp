@@ -788,6 +788,10 @@ void SensorMesh::applyTempRadioParams(float freq, float bw, uint8_t sf, uint8_t 
   revert_radio_at = futureMillis(2000 + timeout_mins*60*1000);   // schedule when to revert radio params
 }
 
+void SensorMesh::disableTxFor(int timeout_mins) {
+  blockTxFor((unsigned long)timeout_mins * 60UL * 1000UL);
+}
+
 void SensorMesh::sendSelfAdvertisement(int delay_millis, bool flood) {
   mesh::Packet* pkt = createSelfAdvert();
   if (pkt) {
