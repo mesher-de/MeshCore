@@ -220,7 +220,7 @@ This document provides an overview of CLI commands that can be sent to MeshCore 
 #### Change the radio parameters for a set duration
 **Usage:** 
 - `tempradio <freq>,<bw>,<sf>,<cr>,<timeout_mins>`
-- `tempradio off <timeout_mins>`
+- `tempradio off,<timeout_mins>`
 
 **Parameters:**
 - `freq`: Frequency in MHz (300-2500)
